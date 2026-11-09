@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VK Skin × Hair</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Reset browser defaults */
+*, *::before, *::after { box-sizing: border-box !important; }
+a { text-decoration: none !important; color: inherit !important; }
+button { border: none !important; outline: none !important; cursor: pointer !important; }
+  /* Fonts loaded via link tags instead */
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --skin-bg: #e2cfc8;
+    --skin-dark: #4a1e14;
+    --skin-card: #f0e4dc;
+    --hair-bg: #faf4e8;
+    --hair-dark: #2e2010;
+    --hair-card: #f0e8d4;
+  }
+
+  body {
+    font-family: 'Noto Serif TC', serif !important;
+    min-height: 100vh !important;
+    background: #c8bab2 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    text-align: center;
+    padding: 40px 20px 0;
+  }
+  .site-logo {
+    font-family: Georgia, serif;
+    font-size: 64px;
+    font-weight: bold;
+    letter-spacing: 18px;
+    padding-left: 18px;
+    line-height: 1;
+    color: #2e1a10;
+  }
+  .site-tagline {
+    font-family: Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: #2e1a10;
+    margin-top: 6px;
+    opacity: 0.75;
+  }
+
+  /* ── TABS ── */
+  .tab-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 28px auto 0;
+    max-width: 480px;
+    background: rgba(46,26,16,0.1);
+    border-radius: 50px;
+    padding: 4px;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    background: transparent;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(46,26,16,0.5);
+    border-radius: 50px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+  }
+  .tab-btn.active-skin {
+    background: var(--skin-dark);
+    color: #f5e4dc;
+    box-shadow: 0 2px 12px rgba(74,30,20,0.3);
+  }
+  .tab-btn.active-hair {
+    background: var(--hair-dark);
+    color: #f5ede0;
+    box-shadow: 0 2px 12px rgba(46,32,16,0.3);
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; padding: 24px 16px 48px; max-width: 480px; margin: 0 auto; }
+  .page.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ══════════════════════════════
+     SKIN PAGE
+  ══════════════════════════════ */
+  .skin-wrap {
+    background: var(--skin-bg);
+    border-radius: 20px;
+    padding: 32px 22px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .corner { position: absolute; opacity: 0.22; }
+  .c-tl { top: 10px; left: 10px; }
+  .c-tr { top: 10px; right: 10px; transform: scaleX(-1); }
+  .c-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
+  .c-br { bottom: 10px; right: 10px; transform: scale(-1,-1); }
+
+  .s-div { display:flex; align-items:center; gap:7px; margin:9px 0; }
+  .s-div .line { flex:1; height:0.8px; background:rgba(74,30,20,0.25); }
+  .s-div .dot  { width:4px; height:4px; border-radius:50%; background:rgba(74,30,20,0.35); flex-shrink:0; }
+
+  .s-title { text-align:center; font-size:15px; font-weight:700; color:var(--skin-dark); letter-spacing:2px; }
+  .s-sub   { text-align:center; font-size:11px; color:var(--skin-dark); letter-spacing:1.5px; margin-bottom:3px; }
+  .s-flow  { text-align:center; font-size:10.5px; color:rgba(74,30,20,0.68); line-height:1.8; margin-bottom:14px; }
+
+  .s-cards { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px; }
+  .s-card-light { background:#f0e4dc; border-radius:10px; padding:16px 10px 13px; text-align:center; }
+  .s-card-dark  { background:var(--skin-dark); border-radius:10px; padding:16px 10px 13px; text-align:center; }
+  .s-lbl   { font-size:11px; color:rgba(74,30,20,0.65); margin-bottom:5px; }
+  .s-lbl-d { font-size:11px; color:rgba(245,225,215,0.65); margin-bottom:5px; }
+  .s-price { font-family:Georgia,serif; font-weight:bold; line-height:1; }
+  .s-price .d { font-size:17px; vertical-align:top; margin-top:5px; display:inline-block; }
+  .s-price .n { font-size:40px; letter-spacing:-1px; }
+  .s-price-l { color:var(--skin-dark); }
+  .s-price-d { color:#f5e1d7; }
+  .s-note   { font-size:9.5px; color:rgba(74,30,20,0.55); margin-top:6px; line-height:1.6; }
+  .s-note-d { font-size:9.5px; color:rgba(245,225,215,0.6); margin-top:6px; line-height:1.6; }
+
+  .s-addon-hd { text-align:center; font-size:11px; letter-spacing:2px; color:rgba(74,30,20,0.5); margin-bottom:9px; }
+  .s-addon { display:flex; justify-content:space-between; align-items:center; padding:10px 13px; background:rgba(240,228,220,0.6); border-radius:7px; margin-bottom:6px; }
+  .s-aname { font-size:12px; color:var(--skin-dark); font-weight:700; }
+  .s-atag  { font-size:9.5px; color:rgba(74,30,20,0.5); margin-left:4px; }
+  .s-aprice { font-family:Georgia,serif; font-weight:bold; font-size:14px; color:var(--skin-dark); white-space:nowrap; }
+
+  .s-addon-mts { flex-direction:column; align-items:flex-start; gap:7px; }
+  .s-tags { display:flex; flex-wrap:wrap; align-items:center; gap:5px; }
+  .s-tag-label { font-size:9.5px; color:rgba(74,30,20,0.5); white-space:nowrap; }
+  .s-tag { font-size:9.5px; color:var(--skin-dark); background:rgba(74,30,20,0.1); border:0.8px solid rgba(74,30,20,0.25); border-radius:20px; padding:2px 8px; white-space:nowrap; }
+
+  .s-note-box { background:var(--skin-dark); border-radius:10px; padding:16px 16px 14px; margin-top:16px; }
+  .s-note-star { font-size:11px; color:rgba(245,225,215,0.45); letter-spacing:2px; margin-bottom:5px; }
+  .s-note-title { font-size:13px; font-weight:700; color:#f5e1d7; margin-bottom:8px; letter-spacing:1px; }
+  .s-note-body  { font-size:11px; color:rgba(245,225,215,0.8); line-height:1.9; }
+
+  /* ══════════════════════════════
+     HAIR PAGE
+  ══════════════════════════════ */
+  .hair-wrap {
+    background: var(--hair-bg);
+    border-radius: 20px;
+    padding: 32px 22px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .h-div { display:flex; align-items:center; gap:7px; margin:9px 0; }
+  .h-div .line { flex:1; height:0.8px; background:rgba(46,32,16,0.22); }
+  .h-div .dot  { width:4px; height:4px; border-radius:50%; background:rgba(46,32,16,0.32); flex-shrink:0; }
+
+  .h-title { text-align:center; font-size:15px; font-weight:700; color:var(--hair-dark); letter-spacing:2.5px; }
+
+  .h-flow { text-align:center; margin-bottom:14px; }
+  .h-flow-label { font-size:10px; font-weight:700; color:rgba(46,32,16,0.42); letter-spacing:1.5px; margin-bottom:5px; }
+  .h-flow-text  { font-size:10.5px; color:rgba(46,32,16,0.68); line-height:1.8; }
+  .h-flow-sep   { height:0.5px; background:rgba(46,32,16,0.12); margin:8px 24px; }
+
+  /* 首次施作 */
+  .h-main { background:#3d2e1a; border-radius:14px; padding:20px 18px 18px; margin-bottom:10px; }
+  .h-badge { display:inline-block; font-size:13px; font-weight:700; letter-spacing:1.5px; color:#f5ede0; background:rgba(255,255,255,0.12); border:0.8px solid rgba(245,237,224,0.3); border-radius:20px; padding:3px 16px; margin-bottom:14px; }
+  .h-compare { background:rgba(255,255,255,0.07); border-radius:10px; padding:12px 16px; margin-bottom:12px; }
+  .h-compare-row { display:flex; justify-content:space-between; align-items:center; padding:4px 0; }
+  .h-compare-row+.h-compare-row { border-top:0.5px solid rgba(245,237,224,0.15); padding-top:9px; margin-top:3px; }
+  .hc-lbl   { font-size:11px; color:rgba(245,237,224,0.45); }
+  .hc-lbl-hl{ font-size:12px; font-weight:700; color:rgba(245,237,224,0.9); }
+  .hc-price { font-family:Georgia,serif; font-size:14px; color:rgba(245,237,224,0.38); text-decoration:line-through; }
+  .hc-price-hl { font-family:Georgia,serif; font-weight:bold; font-size:32px; color:#f5ede0; line-height:1; }
+  .hc-price-hl .d { font-size:15px; vertical-align:top; margin-top:5px; display:inline-block; }
+
+  .h-zones { display:flex; gap:8px; margin-bottom:12px; }
+  .h-zone { flex:1; background:rgba(255,255,255,0.06); border:0.8px solid rgba(245,237,224,0.18); border-radius:8px; padding:10px; text-align:center; }
+  .h-zone-hl { flex:1; background:rgba(255,255,255,0.12); border:1px solid rgba(245,237,224,0.45); border-radius:8px; padding:10px; text-align:center; }
+  .hz-lbl { font-size:10.5px; color:rgba(245,237,224,0.5); margin-bottom:5px; }
+  .hz-lbl-hl { font-size:10.5px; color:rgba(245,237,224,0.8); margin-bottom:5px; }
+  .hz-price { font-family:Georgia,serif; font-weight:bold; font-size:20px; color:#f5ede0; }
+  .hz-discount { font-size:16px; font-weight:700; color:#f5ede0; }
+  .hz-sub { font-size:9.5px; color:rgba(245,237,224,0.5); margin-top:3px; }
+
+  .h-calc-title { font-size:9.5px; color:rgba(245,237,224,0.4); letter-spacing:1.5px; margin-bottom:6px; text-align:center; }
+  .h-calc { display:flex; gap:5px; margin-bottom:14px; }
+  .h-cell { flex:1; background:rgba(255,255,255,0.05); border-radius:7px; padding:7px 6px; text-align:center; }
+  .h-cell-hl { flex:1; background:rgba(255,255,255,0.1); border:0.8px solid rgba(245,237,224,0.3); border-radius:7px; padding:7px 6px; text-align:center; }
+  .hc-zone  { font-size:10px; color:rgba(245,237,224,0.5); margin-bottom:4px; }
+  .hc-amt   { font-family:Georgia,serif; font-weight:bold; font-size:16px; color:#f5ede0; }
+  .hc-save  { font-size:11px; color:rgba(245,237,224,0.4); margin-top:2px; }
+  .hc-save-hl { font-size:11px; color:rgba(245,237,224,0.65); margin-top:2px; }
+  .h-gift { display:flex; align-items:center; justify-content:center; gap:6px; font-size:10.5px; color:rgba(245,237,224,0.7); background:rgba(255,255,255,0.07); border:0.8px solid rgba(245,237,224,0.15); border-radius:8px; padding:9px 14px; }
+
+  /* 定期保養 */
+  .h-return { background:#ede4d0; border-radius:14px; padding:18px 20px 16px; margin-bottom:10px; }
+  .h-return-hd { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+  .h-return-title { font-size:15px; font-weight:700; color:var(--hair-dark); letter-spacing:1px; }
+  .h-return-badge { font-size:10.5px; font-weight:700; color:#f5ede0; background:#3d2e1a; border-radius:20px; padding:3px 12px; }
+  .h-return-cond  { font-size:11px; color:rgba(46,32,16,0.55); margin-bottom:12px; }
+  .h-return-main  { display:flex; align-items:center; gap:14px; background:rgba(46,32,16,0.07); border-radius:10px; padding:14px 16px; margin-bottom:10px; }
+  .h-return-big { line-height:1.2; flex-shrink:0; }
+  .h-return-big .small-lbl { font-size:12px; font-weight:700; color:var(--hair-dark); margin-bottom:2px; }
+  .h-return-big .big-num { font-family:Georgia,serif; font-weight:bold; font-size:42px; color:var(--hair-dark); line-height:1; }
+  .h-return-sep { width:1px; height:44px; background:rgba(46,32,16,0.15); flex-shrink:0; }
+  .h-return-desc { font-size:12px; color:var(--hair-dark); line-height:1.85; }
+  .h-return-desc strong { font-size:13px; display:block; }
+  .h-return-desc .mid { font-size:11.5px; display:block; }
+  .h-return-desc small { font-size:10px; color:rgba(46,32,16,0.5); display:block; margin-top:1px; }
+  .h-return-gift { display:inline-flex; align-items:center; gap:5px; font-size:10.5px; color:var(--hair-dark); background:rgba(46,32,16,0.08); border:0.8px solid rgba(46,32,16,0.2); border-radius:20px; padding:4px 14px; }
+  .h-return-msg { text-align:center; font-size:12px; color:var(--hair-dark); font-family:'Nunito',sans-serif; font-weight:700; letter-spacing:0.5px; margin-top:10px; padding-top:10px; border-top:0.5px solid rgba(46,32,16,0.15); }
+
+  /* 頻率 */
+  .h-freq { background:var(--hair-card); border-radius:14px; padding:16px 18px; margin-bottom:10px; border:1px solid rgba(46,32,16,0.1); }
+  .h-freq-title { font-size:14px; font-weight:700; color:var(--hair-dark); letter-spacing:1px; margin-bottom:4px; }
+  .h-freq-sub   { font-size:10.5px; color:rgba(46,32,16,0.52); margin-bottom:12px; }
+  .h-freq-row { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:0.5px solid rgba(46,32,16,0.1); }
+  .h-freq-row:last-child { border-bottom:none; padding-bottom:0; }
+  .h-freq-num { width:22px; height:22px; border-radius:50%; background:#3d2e1a; color:#f5ede0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0; }
+  .h-freq-stage { font-size:12px; font-weight:700; color:var(--hair-dark); }
+  .h-freq-detail { font-size:10.5px; color:rgba(46,32,16,0.58); margin-top:1px; }
+
+  /* 保養液 */
+  .h-product-hd { text-align:center; font-size:14px; font-weight:700; color:var(--hair-dark); letter-spacing:2px; margin-bottom:10px; }
+  .h-product { display:flex; justify-content:space-between; align-items:center; padding:11px 14px; background:rgba(237,228,208,0.7); border-radius:8px; margin-bottom:7px; }
+  .h-pname { font-size:12.5px; color:var(--hair-dark); font-weight:700; }
+  .h-pprice { font-family:Georgia,serif; font-weight:bold; font-size:15px; color:var(--hair-dark); white-space:nowrap; }
+  .h-remind { background:rgba(46,32,16,0.05); border-left:2.5px solid rgba(46,32,16,0.28); border-radius:0 8px 8px 0; padding:12px 14px; margin-top:14px; }
+  .h-remind-title { font-size:12px; font-weight:700; color:var(--hair-dark); margin-bottom:5px; }
+  .h-remind-body  { font-size:11px; color:rgba(46,32,16,0.65); line-height:1.8; }
+
+  .footer-ig { text-align:center; font-family:Georgia,serif; font-size:11px; letter-spacing:3px; opacity:0.4; margin-top:18px; }
+
+  /* ══════════════════════════════
+     PACKAGE PAGE
+  ══════════════════════════════ */
+  .pkg-wrap {
+    background: var(--skin-bg);
+    border-radius: 20px;
+    padding: 32px 22px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .pkg-note { text-align:center; font-size:10.5px; color:rgba(74,30,20,0.6); margin-bottom:16px; line-height:1.7; }
+  .pkg-outer { background:#f0e4dc; border-radius:14px; padding:16px 16px 14px; margin-bottom:10px; }
+  .pkg-outer-dark { background:#4a1e14; border-radius:14px; padding:16px 16px 14px; margin-bottom:10px; }
+  .pkg-outer-title { font-size:14px; font-weight:700; color:#4a1e14; letter-spacing:1px; margin-bottom:10px; }
+  .pkg-outer-title-d { font-size:14px; font-weight:700; color:#f5e1d7; letter-spacing:1px; margin-bottom:10px; }
+  .pkg-inner { background:rgba(74,30,20,0.06); border-radius:9px; padding:12px 14px; margin-bottom:8px; }
+  .pkg-inner:last-child { margin-bottom:0; }
+  .pkg-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; }
+  .pkg-left { flex:1; }
+  .pkg-tier { font-size:10px; font-weight:700; color:#f5e1d7; background:#4a1e14; border-radius:20px; padding:2px 10px; display:inline-block; margin-bottom:4px; }
+  .pkg-name { font-size:13px; font-weight:700; color:#4a1e14; }
+  .pkg-name-d { font-size:13px; font-weight:700; color:#f5e1d7; }
+  .pkg-price-pkg { font-family:Georgia,serif; font-weight:bold; font-size:20px; color:#4a1e14; white-space:nowrap; flex-shrink:0; margin-left:8px; }
+  .pkg-price-pkg-d { font-family:Georgia,serif; font-weight:bold; font-size:20px; color:#f5e1d7; white-space:nowrap; flex-shrink:0; margin-left:8px; }
+  .pkg-sep { height:0.5px; background:rgba(74,30,20,0.15); margin:8px 0; }
+  .pkg-sep-d { height:0.5px; background:rgba(245,225,215,0.2); margin:8px 0; }
+  .pkg-items { display:flex; flex-direction:column; gap:3px; margin-bottom:8px; }
+  .pkg-item { display:flex; align-items:flex-start; gap:6px; font-size:10.5px; color:rgba(74,30,20,0.75); line-height:1.6; }
+  .pkg-item-d { display:flex; align-items:flex-start; gap:6px; font-size:10.5px; color:rgba(245,225,215,0.75); line-height:1.6; }
+  .pkg-dot { width:3px; height:3px; border-radius:50%; background:rgba(74,30,20,0.4); flex-shrink:0; margin-top:6px; }
+  .pkg-dot-d { width:3px; height:3px; border-radius:50%; background:rgba(245,225,215,0.4); flex-shrink:0; margin-top:6px; }
+  .pkg-fit-label { font-size:9.5px; color:rgba(74,30,20,0.5); margin-bottom:4px; letter-spacing:0.5px; }
+  .pkg-fit-label-d { font-size:9.5px; color:rgba(245,225,215,0.5); margin-bottom:4px; letter-spacing:0.5px; }
+  .pkg-fit { font-size:10.5px; color:rgba(74,30,20,0.72); line-height:1.7; }
+  .pkg-fit-d { font-size:10.5px; color:rgba(245,225,215,0.72); line-height:1.7; }
+  .pkg-fit-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:5px; }
+  .pkg-fit-tag { font-size:9px; color:#4a1e14; background:rgba(74,30,20,0.1); border:0.8px solid rgba(74,30,20,0.25); border-radius:20px; padding:2px 8px; white-space:nowrap; }
+  .pkg-fit-tag-d { font-size:9px; color:#f5e1d7; background:rgba(245,225,215,0.12); border:0.8px solid rgba(245,225,215,0.25); border-radius:20px; padding:2px 8px; white-space:nowrap; }
+  .pkg-note-box { background:rgba(74,30,20,0.07); border-left:2.5px solid rgba(74,30,20,0.3); border-radius:0 8px 8px 0; padding:12px 14px; margin-top:4px; }
+  .pkg-note-text { font-size:10.5px; color:rgba(74,30,20,0.7); line-height:1.8; }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <div class="site-logo">VK</div>
+  <div class="site-tagline">Skin × Hair</div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active-skin" id="tab-skin" onclick="switchTab('skin')">護膚服務</button>
+  <button class="tab-btn" id="tab-pkg" onclick="switchTab('pkg')">皮膚管理套組</button>
+  <button class="tab-btn" id="tab-hair" onclick="switchTab('hair')">蘊髮服務</button>
+</div>
+
+<!-- ══ 護膚頁 ══ -->
+<div class="page active" id="page-skin">
+<div class="skin-wrap">
+
+  <svg class="corner c-tl" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-tr" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-bl" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-br" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(20 21 9)"/></svg>
+
+  <div class="s-div"><div class="line"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="line"></div></div>
+  <div class="s-title">護膚服務價目表</div>
+  <div class="s-div" style="margin:7px 0;"><div class="line"></div><div class="dot"></div><div class="line"></div></div>
+  <div class="s-sub">毛孔淨化管理</div>
+  <div class="s-flow">
+    服務流程<br>
+    諮詢與膚況評估 → 深層潔淨 → 毛孔軟化<br>手工粉刺淨化 → 油脂深層調理 → 冰導舒緩 → 舒緩面膜 → 基礎保養
+  </div>
+
+  <div class="s-cards">
+    <div class="s-card-light">
+      <div class="s-lbl">一般肌膚</div>
+      <div class="s-price s-price-l"><span class="d">$</span><span class="n">2,000</span></div>
+      <div class="s-note">含基礎面膜<br>約 1.5 ~ 2 小時</div>
+    </div>
+    <div class="s-card-dark">
+      <div class="s-lbl-d">痘痘內包肌</div>
+      <div class="s-price s-price-d"><span class="d">$</span><span class="n">2,500</span></div>
+      <div class="s-note-d">含基礎面膜<br>約 2 ~ 2.5 小時</div>
+    </div>
+  </div>
+
+  <div class="s-addon-hd">— &nbsp;升級客製化面膜&nbsp; —</div>
+
+  <div class="s-addon"><div><span class="s-aname">升級面膜</span><span class="s-atag">×1 道</span></div><div class="s-aprice">+$150</div></div>
+  <div class="s-addon"><div><span class="s-aname">兩道面膜</span><span class="s-atag">基礎 + 升級</span></div><div class="s-aprice">+$300</div></div>
+  <div class="s-addon"><div><span class="s-aname">兩道升級面膜</span><span class="s-atag">×2 道</span></div><div class="s-aprice">+$500</div></div>
+  <div class="s-addon" style="flex-direction:column; align-items:flex-start; gap:8px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; width:100%;">
+      <span class="s-aname">以色列乳酸菌面膜套組（含軟膜）</span>
+      <span class="s-aprice">+$600</span>
+    </div>
+    <div style="display:flex; flex-wrap:nowrap; gap:4px; overflow:hidden;">
+      <span style="font-size:8.5px; color:#4a1e14; background:rgba(74,30,20,0.07); border:0.8px solid rgba(74,30,20,0.2); border-radius:20px; padding:2px 6px; white-space:nowrap;">補充益生菌</span>
+      <span style="font-size:8.5px; color:#4a1e14; background:rgba(74,30,20,0.07); border:0.8px solid rgba(74,30,20,0.2); border-radius:20px; padding:2px 6px; white-space:nowrap;">草本排毒</span>
+      <span style="font-size:8.5px; color:#4a1e14; background:rgba(74,30,20,0.07); border:0.8px solid rgba(74,30,20,0.2); border-radius:20px; padding:2px 6px; white-space:nowrap;">高效舒緩</span>
+      <span style="font-size:8.5px; color:#4a1e14; background:rgba(74,30,20,0.07); border:0.8px solid rgba(74,30,20,0.2); border-radius:20px; padding:2px 6px; white-space:nowrap;">修復屏障</span>
+      <span style="font-size:8.5px; color:#4a1e14; background:rgba(74,30,20,0.07); border:0.8px solid rgba(74,30,20,0.2); border-radius:20px; padding:2px 6px; white-space:nowrap;">深層修護</span>
+      <span style="font-size:8.5px; color:#4a1e14; background:rgba(74,30,20,0.07); border:0.8px solid rgba(74,30,20,0.2); border-radius:20px; padding:2px 6px; white-space:nowrap;">強效鎖水</span>
+    </div>
+  </div>
+
+  <div class="s-addon-hd" style="margin-top:14px;">— &nbsp;其他加購&nbsp; —</div>
+
+  <div class="s-addon" style="align-items:center;"><div style="display:flex;flex-direction:column;justify-content:center;"><span class="s-aname">嚴重痘痘肌加清</span></div><div style="text-align:right;flex-shrink:0;"><div class="s-aprice" style="white-space:nowrap;">+$500 <span style="font-size:10px;font-weight:400;color:rgba(74,30,20,0.5);">/ 小時</span></div><div style="font-size:10px;color:rgba(74,30,20,0.55);margin-top:2px;white-space:nowrap;">可半小時 +$250</div></div></div>
+  <div class="s-addon" style="align-items:center;">
+    <div style="display:flex;flex-direction:column;justify-content:center;">
+      <span class="s-aname">高頻肌膚 or 頭皮調理</span>
+    </div>
+    <div style="text-align:right;">
+      <div class="s-aprice">+$199</div>
+    </div>
+  </div>
+  <div class="s-addon s-addon-mts">
+    <div style="display:flex;flex-direction:column;gap:3px;width:100%;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span class="s-aname">韓國機能精粹<span style="font-size:10px; font-weight:400; color:rgba(74,30,20,0.6);">（MTS 微晶導入）</span></span>
+        <span class="s-aprice">+$500</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding-left:14px;margin-top:4px;">
+        <span style="font-size:11px; color:rgba(74,30,20,0.65);">＋ 加高頻肌膚調理</span>
+        <span class="s-aprice">+$600</span>
+      </div>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:5px; margin-top:4px;">
+        <span style="font-size:9.5px; color:rgba(74,30,20,0.5);">精粹可選擇</span>
+        <span style="font-size:9.5px; color:#4a1e14; background:rgba(74,30,20,0.08); border:0.8px solid rgba(74,30,20,0.25); border-radius:20px; padding:2px 8px;">PR 修護彈潤</span>
+        <span style="font-size:9.5px; color:#4a1e14; background:rgba(74,30,20,0.08); border:0.8px solid rgba(74,30,20,0.25); border-radius:20px; padding:2px 8px;">AC 清爽淨膚</span>
+        <span style="font-size:9.5px; color:#4a1e14; background:rgba(74,30,20,0.08); border:0.8px solid rgba(74,30,20,0.25); border-radius:20px; padding:2px 8px;">BG 水潤舒緩</span>
+      </div>
+    </div>
+  </div>
+  <div class="s-addon s-addon-mts">
+    <div style="display:flex;flex-direction:column;gap:3px;width:100%;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div style="display:flex;flex-direction:column;gap:2px;">
+          <span class="s-aname">韓國 Thesera 外泌體 × 植物外囊泡</span>
+          <span style="font-size:10px; color:rgba(74,30,20,0.55);">（MTS 微晶導入）</span>
+        </div>
+        <span class="s-aprice">+$1,300</span>
+      </div>
+      <div class="s-tags" style="margin-top:6px; flex-wrap:wrap;">
+        <span class="s-tag-label">精華可選擇</span>
+        <span class="s-tag" style="font-size:8px;">EXO 逆顏</span>
+        <span class="s-tag" style="font-size:8px;">水肌澤潤</span>
+        <span class="s-tag" style="font-size:8px;">BHA 毛孔淨化</span>
+        <span class="s-tag" style="font-size:8px;">紅潤晶透</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="s-note-box">
+    <div class="s-note-star">✦ &nbsp; ✦ &nbsp; ✦</div>
+    <div class="s-note-title">關於 VK 的堅持</div>
+    <div class="s-note-body">
+      針清，是 Vicky 最重視的一道工序。每一次護理，我都會以地毯式手法逐一仔細清理，不因時間限制而草草了事。外面許多美容院受課程時數所縛，往往清到一半便不得不結束——但在這裡，我只做一件事：<strong style="color:#f5e1d7;">清乾淨，才結束。</strong><br><br>
+      升級面膜為客製化選項，依照當日肌膚狀態量身挑選，給您的肌膚最適切的修護。
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <a href="https://lin.ee/TZ8b5rC" target="_blank" style="display:inline-flex !important; align-items:center; gap:8px; background:#4a1e14 !important; color:#f5e1d7 !important; font-family:'Noto Serif TC',serif; font-size:13px; font-weight:700; letter-spacing:1px; padding:12px 28px; border-radius:50px; text-decoration:none; box-shadow:0 3px 12px rgba(74,30,20,0.25);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#f5e1d7"><path d="M12 2C6.48 2 2 6.02 2 11c0 3.38 1.93 6.35 4.88 8.08L6 22l3.27-1.7C10.14 20.74 11.05 21 12 21c5.52 0 10-4.02 10-9S17.52 2 12 2z"/></svg>
+      加入官方 LINE 預約
+    </a>
+  </div>
+  <div class="footer-ig" style="color:var(--skin-dark); margin-top:14px;">IG : vkskin_n_hair</div>
+</div>
+</div>
+
+<!-- ══ 育髮頁 ══ -->
+<div class="page" id="page-hair">
+<div class="hair-wrap">
+
+  <svg class="corner c-tl" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#2e2010" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#2e2010" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-tr" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#2e2010" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#2e2010" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-bl" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#2e2010" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#2e2010" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-br" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#2e2010" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#2e2010" transform="rotate(20 21 9)"/></svg>
+
+  <div class="h-div"><div class="line"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="line"></div></div>
+  <div class="h-title">蘊髮價目表</div>
+  <div class="h-div" style="margin:7px 0 14px;"><div class="line"></div><div class="dot"></div><div class="line"></div></div>
+
+  <div class="h-flow">
+    <div class="h-flow-label">預約流程</div>
+    <div class="h-flow-text">線上諮詢 → 提供照片評估區域 → 確認施作 → 術前須知</div>
+    <div class="h-flow-sep"></div>
+    <div class="h-flow-label">施作當日</div>
+    <div class="h-flow-text">育髮諮詢 → 頭皮檢測 → 開始施作 → 術後衛教</div>
+  </div>
+
+  <!-- 首次施作 -->
+  <div class="h-main">
+    <div style="text-align:center;"><div class="h-badge">⭐ &nbsp;首次施作</div></div>
+    <div class="h-compare">
+      <div class="h-compare-row"><div class="hc-lbl">原價</div><div class="hc-price">$6,000</div></div>
+      <div class="h-compare-row"><div class="hc-lbl-hl">首次優惠（第一區）</div><div class="hc-price-hl"><span class="d">$</span>5,000</div></div>
+    </div>
+    <div class="h-zones">
+      <div class="h-zone-hl" style="border-radius:10px; padding:14px 16px; margin-bottom:12px; width:100%; text-align:left;">
+        <div style="font-size:11px; color:rgba(245,237,224,0.6); margin-bottom:4px;">第二區以上</div>
+        <div style="font-size:16px; font-weight:700; color:#f5ede0; margin-bottom:8px;">優惠價再 79 折</div>
+        <div style="font-size:18px; font-weight:700; color:#f5ede0; text-align:center; margin-bottom:6px;">每區只要 $3,950</div>
+        <div style="font-size:12px; color:rgba(245,237,224,0.8); text-align:center; letter-spacing:1px;">✦ 區域越多省越多 ✦</div>
+      </div>
+    </div>
+    <div class="h-calc-title">區數試算</div>
+    <div class="h-calc">
+      <div class="h-cell"><div class="hc-zone">1 區</div><div class="hc-amt">$5,000</div><div class="hc-save">&nbsp;</div></div>
+      <div class="h-cell"><div class="hc-zone">2 區</div><div class="hc-amt">$8,950</div><div class="hc-save">省 $3,050</div></div>
+      <div class="h-cell-hl"><div class="hc-zone">3 區</div><div class="hc-amt">$12,900</div><div class="hc-save-hl">省 $5,100</div></div>
+    </div>
+    <div class="h-gift">🎁 &nbsp;均贈送高濃度胜肽活性保養液 30ml ＋ 高頻頭皮調理</div>
+  </div>
+
+  <!-- 定期保養 -->
+  <div class="h-return">
+    <div class="h-return-hd">
+      <div class="h-return-title">✨ 定期保養優惠</div>
+      <div class="h-return-badge">蘊髮舊客</div>
+    </div>
+    <div class="h-return-cond">首次施作區域 · 半年內回訪</div>
+    <div class="h-return-main">
+      <div class="h-return-big">
+        <div class="small-lbl">一律原價</div>
+        <div class="big-num">65折</div>
+      </div>
+      <div class="h-return-sep"></div>
+      <div class="h-return-desc">
+        <strong style="white-space:nowrap; font-size:11px;">不限次數・不限區數</strong>
+        <span class="mid">持續鞏固育髮成效</span>
+        <small>越密集保養，效果越穩定</small>
+      </div>
+    </div>
+    <div class="h-return-gift">🎁 &nbsp;凡施作皆贈高頻頭皮調理</div>
+    <div class="h-return-gift" style="margin-top:6px;">🎁 &nbsp;兩區以上加贈高濃度胜肽活性保養液 30ml</div>
+    <div class="h-return-msg">這個優惠，是 Vicky 陪你堅持下去的心意</div>
+  </div>
+
+  <!-- 蘊髮頻率建議 -->
+  <div class="h-freq">
+    <div class="h-freq-title">⚠️ 蘊髮頻率建議</div>
+    <div class="h-freq-sub">依個人狀況，Vicky 會為你量身建議最適合的頻率</div>
+    <div class="h-freq-row"><div class="h-freq-num">1</div><div><div class="h-freq-stage">積極改善期</div><div class="h-freq-detail">經評估後，可每月施作一次</div></div></div>
+    <div class="h-freq-row"><div class="h-freq-num">2</div><div><div class="h-freq-stage">初期調理期</div><div class="h-freq-detail">每三個月施作一次</div></div></div>
+    <div class="h-freq-row"><div class="h-freq-num">3</div><div><div class="h-freq-stage">維持保養期</div><div class="h-freq-detail">達到理想狀態後，每半年保養一次即可</div></div></div>
+  </div>
+
+  <div class="h-div" style="margin:14px 0 10px;"><div class="line"></div><div class="dot"></div><div class="line"></div></div>
+
+  <div class="h-product-hd">保養液</div>
+  <div class="h-product"><div class="h-pname">高濃度胜肽活性保養液 30ml</div><div class="h-pprice">$2,500 <span style="font-size:10px;font-weight:400;opacity:0.5;">/ 瓶</span></div></div>
+  <div class="h-product" style="flex-direction:column; align-items:stretch; gap:0;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div class="h-pname">200 億訊聯人體臍帶血外泌體養髮液 100ml（日常居家照護型）</div>
+      <div class="h-pprice">$1,980 <span style="font-size:10px;font-weight:400;opacity:0.5;">/ 瓶</span></div>
+    </div>
+    <div style="border-top:0.8px dashed rgba(46,32,16,0.2); margin:9px 0 7px;"></div>
+    <div style="text-align:center; font-size:10.5px; font-weight:700; color:var(--hair-dark); letter-spacing:0.5px;">✦ 3 瓶以上另有優惠價，歡迎私訊詢問 ✦</div>
+    <div style="text-align:center; font-size:9px; color:rgba(46,32,16,0.55); margin-top:3px;">舊客 9 折與多瓶優惠不得併用</div>
+  </div>
+  <div class="h-product"><div class="h-pname">蘊髮舊客產品優惠</div><div class="h-pprice">9 折</div></div>
+
+  <div class="h-remind">
+    <div class="h-remind-title">🤍 貼心提醒</div>
+    <div class="h-remind-body">保養液含高活性成分，開封後建議一個月內使用完畢唷</div>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <a href="https://lin.ee/TZ8b5rC" target="_blank" style="display:inline-flex !important; align-items:center; gap:8px; background:#3d2e1a !important; color:#f5ede0 !important; font-family:'Noto Serif TC',serif; font-size:13px; font-weight:700; letter-spacing:1px; padding:12px 28px; border-radius:50px; text-decoration:none; box-shadow:0 3px 12px rgba(46,32,16,0.25);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#f5ede0"><path d="M12 2C6.48 2 2 6.02 2 11c0 3.38 1.93 6.35 4.88 8.08L6 22l3.27-1.7C10.14 20.74 11.05 21 12 21c5.52 0 10-4.02 10-9S17.52 2 12 2z"/></svg>
+      加入官方 LINE 預約
+    </a>
+  </div>
+  <div class="footer-ig" style="color:var(--hair-dark); margin-top:14px;">IG : vkskin_n_hair</div>
+</div>
+</div>
+
+
+<!-- ══ 套組課程頁 ══ -->
+<div class="page" id="page-pkg">
+<div class="pkg-wrap">
+
+  <svg class="corner c-tl" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-tr" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-bl" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(20 21 9)"/></svg>
+  <svg class="corner c-br" width="28" height="28" viewBox="0 0 30 30" fill="none"><ellipse cx="9" cy="15" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(-30 9 15)"/><ellipse cx="21" cy="9" rx="5.5" ry="9" fill="#4a1e14" transform="rotate(20 21 9)"/></svg>
+
+  <div class="s-div"><div class="line"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="line"></div></div>
+  <div class="s-title">VK 套組課程</div>
+  <div class="s-div" style="margin:7px 0 6px;"><div class="line"></div><div class="dot"></div><div class="line"></div></div>
+  <div class="pkg-note">以下為一般肌膚套組價格<br>痘痘粉刺肌另 +$500 加清費用</div>
+
+  <!-- VK 經典管理 -->
+  <div class="pkg-outer">
+    <div class="pkg-outer-title">VK 經典管理</div>
+    <div class="pkg-inner">
+      <div class="pkg-header">
+        <div class="pkg-left">
+          <div class="pkg-tier">初階</div>
+          <div class="pkg-name">毛孔淨化 × 基礎修護</div>
+        </div>
+        <div class="pkg-price-pkg">$2,300</div>
+      </div>
+      <div class="pkg-items">
+        <div class="pkg-item"><div class="pkg-dot"></div><span>毛孔淨化管理</span></div>
+        <div class="pkg-item"><div class="pkg-dot"></div><span>客製化敷膜兩道（基礎 + 升級）</span></div>
+      </div>
+      <div class="pkg-sep"></div>
+      <div class="pkg-fit-label">✦ 適合客群</div>
+      <div class="pkg-fit">以深層清潔為基礎，搭配保濕與基礎修護，適合想維持肌膚日常健康狀態的你。</div>
+    </div>
+    <div class="pkg-inner">
+      <div class="pkg-header">
+        <div class="pkg-left">
+          <div class="pkg-tier">進階</div>
+          <div class="pkg-name">毛孔淨化 × 屏障修護</div>
+        </div>
+        <div class="pkg-price-pkg">$2,600</div>
+      </div>
+      <div class="pkg-items">
+        <div class="pkg-item"><div class="pkg-dot"></div><span>毛孔淨化管理</span></div>
+        <div class="pkg-item"><div class="pkg-dot"></div><span>客製化面膜膏兩道（含軟膜）</span></div>
+      </div>
+      <div class="pkg-sep"></div>
+      <div class="pkg-fit-label">✦ 適合客群</div>
+      <div class="pkg-fit">深層疏通毛孔、調理油脂分泌，乳酸菌強效修護肌膚屏障，提升肌膚自我修復力。</div>
+      <div class="pkg-fit-tags">
+        <span class="pkg-fit-tag">敏感肌推薦</span>
+        <span class="pkg-fit-tag">痘痘肌推薦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VK 機能精粹管理 -->
+  <div class="pkg-outer">
+    <div class="pkg-header">
+      <div class="pkg-left"><div class="pkg-outer-title" style="margin-bottom:0;">VK 機能精粹管理</div></div>
+      <div class="pkg-price-pkg">$3,200</div>
+    </div>
+    <div class="pkg-sep"></div>
+    <div class="pkg-items">
+      <div class="pkg-item"><div class="pkg-dot"></div><span>毛孔淨化管理</span></div>
+      <div class="pkg-item"><div class="pkg-dot"></div><span>高頻肌膚調理</span></div>
+      <div class="pkg-item"><div class="pkg-dot"></div><span>韓國機能精粹 MTS 微晶導入</span></div>
+      <div class="pkg-item"><div class="pkg-dot"></div><span>客製化面膜膏兩道（含軟膜）</span></div>
+    </div>
+    <div class="pkg-sep"></div>
+    <div class="pkg-fit-label">✦ 適合客群</div>
+    <div class="pkg-fit">依膚況需求客製化選擇，Vicky 會為你挑選最適合的機能精粹。</div>
+    <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+      <div>
+        <div style="font-size:10.5px; font-weight:700; color:#4a1e14; margin-bottom:2px;">PR 修護彈潤</div>
+        <div style="font-size:10px; color:rgba(74,30,20,0.65); line-height:1.6;">深層修護，淡化細紋，提升肌膚細緻度，提升肌膚彈性與緊緻感。</div>
+      </div>
+      <div>
+        <div style="font-size:10.5px; font-weight:700; color:#4a1e14; margin-bottom:2px;">AC 清爽淨膚</div>
+        <div style="font-size:10px; color:rgba(74,30,20,0.65); line-height:1.6;">調理油脂分泌，疏通毛孔，改善粉刺生成，維持肌膚清爽細緻。</div>
+      </div>
+      <div>
+        <div style="font-size:10.5px; font-weight:700; color:#4a1e14; margin-bottom:2px;">BG 水肌澤潤</div>
+        <div style="font-size:10px; color:rgba(74,30,20,0.65); line-height:1.6;">密集補水，提升肌膚飽滿水潤感，舒緩乾燥不適，強化肌膚屏障。</div>
+      </div>
+      <div style="font-size:10px; color:rgba(74,30,20,0.7); line-height:1.8; background:rgba(74,30,20,0.05); border-radius:6px; padding:8px 10px; margin-top:2px;">
+        ✦ 高頻肌膚調理深層淨化油脂、疏通毛孔、改善暗沉，全面提升肌膚吸收力，讓後續精華導入更有效益。<br>
+        ✦ 搭配乳酸菌面膜膏補充益生菌、草本排毒、強效鎖水，強效修護肌膚屏障，提升肌膚自我修復力。
+      </div>
+    </div>
+    <div class="pkg-fit-tags" style="margin-top:8px;">
+      <span class="pkg-fit-tag">熟齡肌</span>
+      <span class="pkg-fit-tag">乾燥肌</span>
+      <span class="pkg-fit-tag">油性肌</span>
+      <span class="pkg-fit-tag">粉刺肌</span>
+      <span class="pkg-fit-tag">缺水肌</span>
+      <span class="pkg-fit-tag">敏感肌</span>
+    </div>
+  </div>
+
+  <!-- VK 修護管理 -->
+  <div class="pkg-outer">
+    <div class="pkg-header">
+      <div class="pkg-left"><div class="pkg-outer-title" style="margin-bottom:0;">VK 修護管理</div></div>
+      <div class="pkg-price-pkg">$3,900</div>
+    </div>
+    <div class="pkg-sep"></div>
+    <div class="pkg-items">
+      <div class="pkg-item"><div class="pkg-dot"></div><span>毛孔淨化管理</span></div>
+      <div class="pkg-item"><div class="pkg-dot"></div><span>高頻肌膚調理</span></div>
+      <div class="pkg-item"><div class="pkg-dot"></div><span>韓國 Thesera 外泌體、植物外囊泡 MTS 微晶導入</span></div>
+      <div class="pkg-item"><div class="pkg-dot"></div><span>客製化面膜膏兩道（含軟膜）</span></div>
+    </div>
+    <div class="pkg-sep"></div>
+    <div class="pkg-fit-label">✦ 適合客群</div>
+    <div class="pkg-fit">雙重外囊泡（乳酸菌 × 積雪草）舒緩保養，調理肌膚、維持肌膚穩定。</div>
+    <div style="margin-top:8px; display:flex; flex-direction:column; gap:6px;">
+      <div>
+        <div style="font-size:10.5px; font-weight:700; color:#4a1e14; margin-bottom:2px;">EXO 逆顏</div>
+        <div style="font-size:10px; color:rgba(74,30,20,0.65); line-height:1.6;">含鮭魚外泌體 PDRN 10,000ppm，深層修護，淡化細紋，提升肌膚細緻度與彈性。</div>
+      </div>
+      <div>
+        <div style="font-size:10.5px; font-weight:700; color:#4a1e14; margin-bottom:2px;">BHA 毛孔淨化</div>
+        <div style="font-size:10px; color:rgba(74,30,20,0.65); line-height:1.6;">調理油脂，平滑細緻，改善毛孔與粉刺生成。</div>
+      </div>
+      <div>
+        <div style="font-size:10.5px; font-weight:700; color:#4a1e14; margin-bottom:2px;">紅潤晶透</div>
+        <div style="font-size:10px; color:rgba(74,30,20,0.65); line-height:1.6;">透亮光澤，提亮膚色、均勻膚色，呈現健康光澤。</div>
+      </div>
+      <div>
+        <div style="font-size:10.5px; font-weight:700; color:#4a1e14; margin-bottom:2px;">水肌澤潤</div>
+        <div style="font-size:10px; color:rgba(74,30,20,0.65); line-height:1.6;">密集補水，柔嫩透亮，呈現自然水光感。</div>
+      </div>
+      <div style="font-size:10px; color:rgba(74,30,20,0.7); line-height:1.8; background:rgba(74,30,20,0.05); border-radius:6px; padding:8px 10px; margin-top:2px;">
+        ✦ 高頻肌膚調理深層淨化油脂、疏通毛孔、改善暗沉，全面提升肌膚吸收力，讓後續精華導入更有效益。<br>
+        ✦ 搭配乳酸菌面膜膏補充益生菌、草本排毒、強效鎖水，強效修護肌膚屏障，提升肌膚自我修復力。
+      </div>
+    </div>
+    <div class="pkg-fit-tags" style="margin-top:8px;">
+      <span class="pkg-fit-tag">乾燥肌</span>
+      <span class="pkg-fit-tag">敏感肌</span>
+      <span class="pkg-fit-tag">粉刺痘痘肌</span>
+      <span class="pkg-fit-tag">暗沉肌</span>
+      <span class="pkg-fit-tag">缺水肌</span>
+      <span class="pkg-fit-tag">毛孔粗大肌</span>
+    </div>
+  </div>
+
+  <!-- VK 賦活管理 -->
+  <div class="pkg-outer-dark">
+    <div class="pkg-header">
+      <div class="pkg-left">
+        <div class="pkg-outer-title-d" style="margin-bottom:0;">VK 賦活管理</div>
+        <div style="font-size:9.5px; color:rgba(245,225,215,0.5); margin-top:2px;">頂級療程</div>
+      </div>
+      <div class="pkg-price-pkg-d">$5,600</div>
+    </div>
+    <div class="pkg-sep-d"></div>
+    <div class="pkg-items">
+      <div class="pkg-item-d"><div class="pkg-dot-d"></div><span>毛孔淨化管理</span></div>
+      <div class="pkg-item-d"><div class="pkg-dot-d"></div><span>高頻肌膚調理</span></div>
+      <div class="pkg-item-d"><div class="pkg-dot-d"></div><span>訊聯 400 億人源外泌體 MTS 微晶導入</span></div>
+      <div class="pkg-item-d"><div class="pkg-dot-d"></div><span>客製化面膜膏兩道（含軟膜）</span></div>
+    </div>
+    <div class="pkg-sep-d"></div>
+    <div class="pkg-fit-label-d">✦ 適合客群</div>
+    <div class="pkg-fit-d">給想擁有逆齡水光肌，但不想接受注射，希望以非侵入式方式進行肌膚保養的你。<br>深層補水、緊緻毛孔、延緩肌膚老化、淡化細紋，全面提升肌膚透亮度、彈潤感與光澤。<br>乳酸菌強效修護肌膚屏障，提升肌膚自我修復力。</div>
+    <div class="pkg-fit-tags" style="margin-top:5px;">
+      <span class="pkg-fit-tag-d">熟齡肌</span>
+      <span class="pkg-fit-tag-d">乾燥肌</span>
+      <span class="pkg-fit-tag-d">敏感肌</span>
+      <span class="pkg-fit-tag-d">暗沉肌</span>
+      <span class="pkg-fit-tag-d">缺水肌</span>
+      <span class="pkg-fit-tag-d">彈力不足肌</span>
+    </div>
+  </div>
+
+  <div class="pkg-note-box">
+    <div class="pkg-note-text">✦ &nbsp;所有套組皆含客製化敷膜，依當日肌膚狀態量身挑選，給肌膚最適切的修護。</div>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <a href="https://lin.ee/TZ8b5rC" target="_blank" style="display:inline-flex !important; align-items:center; gap:8px; background:#4a1e14 !important; color:#f5e1d7 !important; font-family:'Noto Serif TC',serif; font-size:13px; font-weight:700; letter-spacing:1px; padding:12px 28px; border-radius:50px; text-decoration:none; box-shadow:0 3px 12px rgba(74,30,20,0.25);">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#f5e1d7"><path d="M12 2C6.48 2 2 6.02 2 11c0 3.38 1.93 6.35 4.88 8.08L6 22l3.27-1.7C10.14 20.74 11.05 21 12 21c5.52 0 10-4.02 10-9S17.52 2 12 2z"/></svg>
+      加入官方 LINE 預約
+    </a>
+  </div>
+  <div class="footer-ig" style="color:var(--skin-dark); margin-top:14px;">IG : vkskin_n_hair</div>
+</div>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-skin','active-hair'));
+  document.getElementById('page-' + tab).classList.add('active');
+  const btn = document.getElementById('tab-' + tab);
+  if (tab === 'pkg') { btn.classList.add('active-skin'); } else { btn.classList.add('active-' + tab); }
+}
+</script>
+</body>
+</html>
